@@ -1,7 +1,7 @@
 import createError from 'http-errors';
 import express from 'express';
 import path from 'path';
-import cookieParser from 'cookie-parser';
+import session from 'express-session';
 import logger from 'morgan';
 
 import homeRouter from './routes/home.js';
@@ -20,7 +20,6 @@ app.set('view engine', 'pug');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', homeRouter);
@@ -37,7 +36,7 @@ app.use((err, req, res, next) => {
   res.locals.error = environment === 'development' ? err : {};
 
   // render the error page
-  res.status(err.status || 500);
+  res.status(err.status || 404);
   res.render('error');
 });
 
