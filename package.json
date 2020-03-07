@@ -1,6 +1,7 @@
 {
   "name": "dental-diary",
   "version": "0.0.0",
+  "private": true,
   "babel": {
     "presets": [
       "@babel/preset-env"

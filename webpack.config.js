@@ -1,15 +1,15 @@
 const path = require('path');
-// import path from 'path';
 
-// const __dirname = path.resolve();
+const srcReactPath = 'public/src/js/react-applications';
+const distReactPath = 'public/dist/react-applications'
 
 module.exports = {
   entry: {
-    home: './public/src/js/react-applications/home/app.jsx'
+    'home/app': `./${srcReactPath}/home/app.jsx`,
   },
   output: {
-    filename: 'app.js',
-    path: __dirname + '/public/dist',
+    path: path.resolve(__dirname, distReactPath),
+    filename: '[name].js'
   },
   module: {
     rules: [
