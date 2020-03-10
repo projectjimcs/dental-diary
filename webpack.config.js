@@ -7,8 +7,12 @@ module.exports = {
   entry: {
     'home/app': `./${srcReactPath}/home/app.jsx`,
   },
+  devServer: {
+    contentBase: distReactPath,
+    hot: true
+  },
   output: {
-    path: path.resolve(__dirname, distReactPath),
+    publicPath: '/dist/react-applications/',
     filename: '[name].js'
   },
   module: {

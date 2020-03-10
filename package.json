@@ -7,6 +7,11 @@
       "@babel/preset-env"
     ]
   },
+  "nodemonConfig": { 
+    "exec": "npm run dev",
+    "watch": ["server/*", "public/*"],
+    "ignore": ["**/__tests__/**", "*.test.js", "*.spec.js"]
+  },
   "scripts": {
     "build-server": "npm run clean && npm run transpile",
     "server": "node -r dotenv/config ./dist-server/bin/www",
@@ -16,7 +21,8 @@
     "webdev": "webpack-dev-server --open --mode development",
     "build": "webpack --mode production",
     "transpile": "babel ./server --out-dir dist-server",
-    "clean": "rm -rf dist-server"
+    "clean": "rm -rf dist-server",
+    "watch:dev": "nodemon"
   },
   "dependencies": {
     "@material-ui/core": "^4.9.5",
@@ -44,6 +50,7 @@
     "css-loader": "^3.4.2",
     "dotenv": "^8.2.0",
     "node-sass": "^4.13.1",
+    "nodemon": "^2.0.2",
     "sass-loader": "^8.0.2",
     "style-loader": "^1.1.3",
     "webpack": "^4.42.0",
