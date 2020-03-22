@@ -7,10 +7,17 @@
       "@babel/preset-env"
     ]
   },
-  "nodemonConfig": { 
+  "nodemonConfig": {
     "exec": "npm run dev",
-    "watch": ["server/*", "public/*"],
-    "ignore": ["**/__tests__/**", "*.test.js", "*.spec.js"]
+    "watch": [
+      "server/*",
+      "public/*"
+    ],
+    "ignore": [
+      "**/__tests__/**",
+      "*.test.js",
+      "*.spec.js"
+    ]
   },
   "scripts": {
     "build-server": "npm run clean && npm run transpile",
@@ -39,6 +46,7 @@
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "reflect-metadata": "^0.1.13",
+    "typeface-roboto": "0.0.75",
     "typeorm": "^0.2.24"
   },
   "devDependencies": {
@@ -49,6 +57,7 @@
     "babel-loader": "^8.0.6",
     "css-loader": "^3.4.2",
     "dotenv": "^8.2.0",
+    "file-loader": "^5.1.0",
     "node-sass": "^4.13.1",
     "nodemon": "^2.0.2",
     "sass-loader": "^8.0.2",

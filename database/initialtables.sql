@@ -37,6 +37,7 @@ CREATE TABLE users (
   id SERIAL PRIMARY KEY NOT NULL,
   company_id INTEGER REFERENCES companies(id),
   uuid UUID NOT NULL,
+  password VARCHAR NOT NULL,
   firstname VARCHAR,
   lastname VARCHAR,
   email VARCHAR,  
