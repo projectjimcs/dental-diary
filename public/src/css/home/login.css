@@ -1,0 +1,19 @@
+.login-box {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+}
+
+.login-box-content {
+  align-self: center;
+  padding: 20px;
+  width: 300px;
+}
+
+#account-type-select {
+  min-width: 120px;
+}
+
+.signin-button {
+  margin-top: 20px;
+}
