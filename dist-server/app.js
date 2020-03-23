@@ -11,7 +11,7 @@ var _express = _interopRequireDefault(require("express"));
 
 var _path = _interopRequireDefault(require("path"));
 
-var _expressSession = _interopRequireDefault(require("express-session"));
+var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
 
 var _morgan = _interopRequireDefault(require("morgan"));
 

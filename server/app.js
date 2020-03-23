@@ -1,7 +1,7 @@
 import createError from 'http-errors';
 import express from 'express';
 import path from 'path';
-import session from 'express-session';
+import jwt from 'jsonwebtoken';
 import logger from 'morgan';
 
 import homeRouter from './routes/home.js';

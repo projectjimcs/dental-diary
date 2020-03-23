@@ -34,10 +34,11 @@
   "dependencies": {
     "@material-ui/core": "^4.9.5",
     "@material-ui/icons": "^4.9.1",
+    "bcrypt": "^4.0.1",
     "debug": "~2.6.9",
     "express": "~4.16.1",
-    "express-session": "^1.17.0",
     "http-errors": "~1.6.3",
+    "jsonwebtoken": "^8.5.1",
     "morgan": "~1.9.1",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
@@ -47,7 +48,8 @@
     "react-dom": "^16.13.0",
     "reflect-metadata": "^0.1.13",
     "typeface-roboto": "0.0.75",
-    "typeorm": "^0.2.24"
+    "typeorm": "^0.2.24",
+    "uuid": "^7.0.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
