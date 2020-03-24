@@ -3,8 +3,12 @@ import express from 'express';
 import path from 'path';
 import jwt from 'jsonwebtoken';
 import logger from 'morgan';
+import cookieParser from 'cookie-parser';
+import cors from 'cors';
+import regeneratorRuntime from "regenerator-runtime";
 
 import homeRouter from './routes/home.js';
+import adminDashboardRouter from './routes/admin-dashboard.js';
 
 import {
   environment,
@@ -19,10 +23,18 @@ app.set('view engine', 'pug');
 
 app.use(logger('dev'));
 app.use(express.json());
+app.use(cors({
+  credentials: true,
+  origin: [
+    'http://localhost:9000',
+  ],
+}));
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', homeRouter);
+app.use('/admin-dashboard', adminDashboardRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

@@ -1,6 +1,6 @@
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
-import { jwtSecret } from '../config.js'
+import {
+  generateToken,
+} from '../services/auth.js';
 
 const testUsers = [
   {
@@ -15,8 +15,10 @@ const testUsers = [
   }
 ];
 
-const login = (req,res) => {
-  console.log(req.body);
+const MILLISECONDS_IN_SECOND = 1000;
+const SECONDS_IN_MINUTE = 60;
+
+const login = (req, res) => {
   const {
     email,
     password,
@@ -27,14 +29,17 @@ const login = (req,res) => {
   });
 
   if (user) {
-    const userAccessToken = jwt.sign({
-      email: user.email,
-      accountType: user.accountType,
-    }, jwtSecret);
+    const jwtToken = generateToken(user);
 
-    return res.json({
-      userAccessToken
+    const expiration = 15 * SECONDS_IN_MINUTE * MILLISECONDS_IN_SECOND;
+    
+    res.cookie('jwtToken', jwtToken, {
+      maxAge: expiration,
+      secure: false,
+      httpOnly: true,
     });
+
+    return res.end();
   }
 
   return res.send('No user found');

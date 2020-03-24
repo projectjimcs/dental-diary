@@ -15,7 +15,15 @@ var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
 
 var _morgan = _interopRequireDefault(require("morgan"));
 
+var _cookieParser = _interopRequireDefault(require("cookie-parser"));
+
+var _cors = _interopRequireDefault(require("cors"));
+
+var _regeneratorRuntime = _interopRequireDefault(require("regenerator-runtime"));
+
 var _home = _interopRequireDefault(require("./routes/home.js"));
+
+var _adminDashboard = _interopRequireDefault(require("./routes/admin-dashboard.js"));
 
 var _config = require("./config.js");
 
@@ -30,11 +38,17 @@ app.set('views', _path["default"].join(_dirname, 'views'));
 app.set('view engine', 'pug');
 app.use((0, _morgan["default"])('dev'));
 app.use(_express["default"].json());
+app.use((0, _cors["default"])({
+  credentials: true,
+  origin: ['http://localhost:9000']
+}));
+app.use((0, _cookieParser["default"])());
 app.use(_express["default"].urlencoded({
   extended: false
 }));
 app.use(_express["default"]["static"](_path["default"].join(_dirname, 'public')));
-app.use('/', _home["default"]); // catch 404 and forward to error handler
+app.use('/', _home["default"]);
+app.use('/admin-dashboard', _adminDashboard["default"]); // catch 404 and forward to error handler
 
 app.use(function (req, res, next) {
   next((0, _httpErrors["default"])(404));

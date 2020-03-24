@@ -79,7 +79,9 @@ export default class Login extends React.Component {
     
     const options = {
       method: 'POST',
+      credentials: 'include',
       headers: {
+        'Accept': 'application/json',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(data),
@@ -89,6 +91,10 @@ export default class Login extends React.Component {
     // .then((response) => response.json())
     .then((token) => {
       console.log('Success:', token);
+      // fetch('/admin-dashboard', {
+      //   withCredentials: true,
+      //   credentials: 'include',
+      // });
     })
     .catch((error) => {
       console.log('Error:', error);
@@ -108,7 +114,7 @@ export default class Login extends React.Component {
       password,
       errorText,
     } = this.state;
-    console.log(errorText)
+    console.log(document.cookie);
     return (
       <Container className='login-box'>
         <Card className='login-box-content'>
