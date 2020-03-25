@@ -39,6 +39,8 @@ const login = (req, res) => {
       httpOnly: true,
     });
 
+    res.json(jwtToken);
+
     return res.end();
   }
 

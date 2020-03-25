@@ -35,6 +35,7 @@ var login = function login(req, res) {
       secure: false,
       httpOnly: true
     });
+    res.json(jwtToken);
     return res.end();
   }
 

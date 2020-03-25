@@ -25,7 +25,7 @@ export default class Login extends React.Component {
       errorText: {
         email: '',
         password: '',
-        accountType: '',
+        // accountType: '',
       },
     };
 
@@ -43,7 +43,9 @@ export default class Login extends React.Component {
     });
   }
 
-  handleFormSubmit() {
+  handleFormSubmit(event) {
+    event.preventDefault();
+    
     const {
       email,
       password,
@@ -58,7 +60,7 @@ export default class Login extends React.Component {
 
     errors['email'] = this.emailIsValid(email) ? '' : emailErrorMessage;
     errors['password'] = password === '' ? passwordErrorMessage : '';
-    errors['accountType'] = accountType === '' ? accountTypeErrorMessage : '';
+    // errors['accountType'] = accountType === '' ? accountTypeErrorMessage : '';
 
     this.setState({
       errorText: {
@@ -67,14 +69,14 @@ export default class Login extends React.Component {
     })
 
     // Bad way of doing things, refactor later
-    if (errors['email'] || errors['password'] || errors['accountType']) {
+    if (errors['email'] || errors['password']) {
       return;
     };
 
     const data = {
       email,
       password,
-      accountType,
+      // accountType,
     };
     
     const options = {
@@ -88,13 +90,18 @@ export default class Login extends React.Component {
     };
 
     fetch('/login', options)
-    // .then((response) => response.json())
-    .then((token) => {
-      console.log('Success:', token);
-      // fetch('/admin-dashboard', {
-      //   withCredentials: true,
-      //   credentials: 'include',
-      // });
+    .then((response) => response.json())
+    .then((jwtToken) => {
+      const tokenParts = jwtToken.split('.');
+      const userData = JSON.parse(atob(tokenParts[1]));
+      console.log(userData)
+      const accountType = userData.accountType;
+
+      if (accountType === 'admin') {
+        window.location.replace('/admin-dashboard');
+      } else {
+        console.log('member logged in');
+      }
     })
     .catch((error) => {
       console.log('Error:', error);
@@ -109,17 +116,18 @@ export default class Login extends React.Component {
 
   render() {
     const {
-      accountType,
+      // accountType,
       email,
       password,
       errorText,
     } = this.state;
-    console.log(document.cookie);
+
     return (
       <Container className='login-box'>
         <Card className='login-box-content'>
           <h2>Login Form</h2>
-            <FormControl className='full-width'>
+          <form onSubmit={this.handleFormSubmit}>
+            {/*<FormControl className='full-width'>
               <InputLabel id='account-type-select-label'>Account Type</InputLabel>
               <Select
                 name='accountType'
@@ -136,7 +144,7 @@ export default class Login extends React.Component {
               >
                 {errorText['accountType'] || ''}
               </FormHelperText>
-            </FormControl>
+            </FormControl>*/}
             <TextField
               name='email'
               className='full-width'
@@ -159,7 +167,8 @@ export default class Login extends React.Component {
               value={password}
               onChange={this.handleFormChange}
             />
-            <Button onClick={this.handleFormSubmit} style={{marginTop: '20px'}}>SIGN IN</Button>
+            <Button type='submit' style={{marginTop: '20px'}}>SIGN IN</Button>
+          </form>
         </Card>
       </Container>
     );
