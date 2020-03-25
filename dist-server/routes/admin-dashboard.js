@@ -9,9 +9,11 @@ exports["default"] = void 0;
 
 var _express = _interopRequireDefault(require("express"));
 
-var homeController = _interopRequireWildcard(require("../controllers/homeController.js"));
+var adminDashboardController = _interopRequireWildcard(require("../controllers/adminDashboardController.js"));
 
-var loginController = _interopRequireWildcard(require("../controllers/loginController.js"));
+var _auth = require("../services/auth.js");
+
+var _permissions = require("../filters/permissions.js");
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
 
@@ -21,10 +23,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 
 var router = _express["default"].Router();
 
-/* GET home page */
-router.get('/', homeController.index);
-/* Authentication Routes */
-
-router.post('/login', loginController.login);
+router.get('/', [_auth.verifyToken, _permissions.isAdministrator], adminDashboardController.index);
 var _default = router;
 exports["default"] = _default;

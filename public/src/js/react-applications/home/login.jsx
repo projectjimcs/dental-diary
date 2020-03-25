@@ -3,6 +3,7 @@ import {
   Container,
   Card,
   FormControl,
+  FormHelperText,
   Select,
   InputLabel,
   MenuItem,
@@ -18,45 +19,155 @@ export default class Login extends React.Component {
     super(props);
 
     this.state = {
-      
+      accountType: '',
+      email: '', 
+      password: '',
+      errorText: {
+        email: '',
+        password: '',
+        // accountType: '',
+      },
     };
+
+    this.handleFormChange = this.handleFormChange.bind(this);
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.emailIsValid = this.emailIsValid.bind(this);
   }
 
-  handleAccountTypeChange() {
+  handleFormChange(event) {
+    const name = event.target.name;
+    const value = event.target.value;
 
+    this.setState({
+      [name]: value,
+    });
+  }
+
+  handleFormSubmit(event) {
+    event.preventDefault();
+    
+    const {
+      email,
+      password,
+      accountType,
+    } = this.state;
+
+    const emailErrorMessage = 'Please enter a valid email address';
+    const passwordErrorMessage = 'A password is required';
+    const accountTypeErrorMessage = 'An account type must be selected';
+
+    const errors = {};
+
+    errors['email'] = this.emailIsValid(email) ? '' : emailErrorMessage;
+    errors['password'] = password === '' ? passwordErrorMessage : '';
+    // errors['accountType'] = accountType === '' ? accountTypeErrorMessage : '';
+
+    this.setState({
+      errorText: {
+        ...errors,
+      }
+    })
+
+    // Bad way of doing things, refactor later
+    if (errors['email'] || errors['password']) {
+      return;
+    };
+
+    const data = {
+      email,
+      password,
+      // accountType,
+    };
+    
+    const options = {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    };
+
+    fetch('/login', options)
+    .then((response) => response.json())
+    .then((jwtToken) => {
+      const tokenParts = jwtToken.split('.');
+      const userData = JSON.parse(atob(tokenParts[1]));
+      console.log(userData)
+      const accountType = userData.accountType;
+
+      if (accountType === 'admin') {
+        window.location.replace('/admin-dashboard');
+      } else {
+        console.log('member logged in');
+      }
+    })
+    .catch((error) => {
+      console.log('Error:', error);
+    });
+  }
+
+  emailIsValid(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    return emailRegex.test(email);
   }
 
   render() {
+    const {
+      // accountType,
+      email,
+      password,
+      errorText,
+    } = this.state;
+
     return (
       <Container className='login-box'>
         <Card className='login-box-content'>
           <h2>Login Form</h2>
-          <form autoComplete="off">
-            <FormControl className='full-width'>
+          <form onSubmit={this.handleFormSubmit}>
+            {/*<FormControl className='full-width'>
               <InputLabel id='account-type-select-label'>Account Type</InputLabel>
               <Select
+                name='accountType'
                 labelId='account-type-select-label'
                 id="account-type-select"
-                value={null}
-                onChange={null}
+                value={accountType}
+                onChange={this.handleFormChange}
               >
                 <MenuItem value='member'>Member</MenuItem>
-                <MenuItem value='admin'>Admin</MenuItem>
+                <MenuItem value='admin'>Administrator</MenuItem>
               </Select>
-            </FormControl>
+              <FormHelperText
+                error={errorText['accountType'] ? true : false}
+              >
+                {errorText['accountType'] || ''}
+              </FormHelperText>
+            </FormControl>*/}
             <TextField
+              name='email'
               className='full-width'
-              id='username-field'
-              label='Username'
+              id='email-field'
+              label='Email'
+              error={errorText['email'] ? true : false}
+              helperText={errorText['email']}
+              value={email}
+              onChange={this.handleFormChange}
             />
             <TextField
+              name='password'
               className='full-width'
               id='password-field'
               label='Password'
               type='password'
               autoComplete='current-password'
+              error={errorText['password'] ? true : false}
+              helperText={errorText['password']}
+              value={password}
+              onChange={this.handleFormChange}
             />
-            <Button style={{marginTop: '20px'}}>SIGN IN</Button>
+            <Button type='submit' style={{marginTop: '20px'}}>SIGN IN</Button>
           </form>
         </Card>
       </Container>
