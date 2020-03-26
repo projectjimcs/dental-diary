@@ -11,8 +11,6 @@ var _express = _interopRequireDefault(require("express"));
 
 var _path = _interopRequireDefault(require("path"));
 
-var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
-
 var _morgan = _interopRequireDefault(require("morgan"));
 
 var _cookieParser = _interopRequireDefault(require("cookie-parser"));
@@ -40,7 +38,8 @@ app.use((0, _morgan["default"])('dev'));
 app.use(_express["default"].json());
 app.use((0, _cors["default"])({
   credentials: true,
-  origin: ['http://localhost:9000']
+  origin: ['http://localhost:9000' // Put this in env based on environment
+  ]
 }));
 app.use((0, _cookieParser["default"])());
 app.use(_express["default"].urlencoded({

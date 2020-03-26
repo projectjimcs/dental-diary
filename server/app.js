@@ -1,7 +1,6 @@
 import createError from 'http-errors';
 import express from 'express';
 import path from 'path';
-import jwt from 'jsonwebtoken';
 import logger from 'morgan';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
@@ -26,7 +25,7 @@ app.use(express.json());
 app.use(cors({
   credentials: true,
   origin: [
-    'http://localhost:9000',
+    'http://localhost:9000', // Put this in env based on environment
   ],
 }));
 app.use(cookieParser());
