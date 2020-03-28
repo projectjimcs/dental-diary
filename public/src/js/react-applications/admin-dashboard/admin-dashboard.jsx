@@ -5,10 +5,10 @@ import {
   MenuList,
   MenuItem,
 } from '@material-ui/core';
-import CompanyEditor from './company-editor.jsx';
-import UserEditor from './user-editor.jsx';
-import PatientEditor from './patient-editor.jsx';
-import AppointmentEditor from './appointment-editor.jsx';
+import CompanyEditor from './company/company-editor.jsx';
+import UserEditor from './user/user-editor.jsx';
+import PatientEditor from './patient/patient-editor.jsx';
+import AppointmentEditor from './appointment/appointment-editor.jsx';
 
 import '../../../css/common/base.css';
 
@@ -51,12 +51,32 @@ export default class AdminDashboard extends React.Component {
 
     return (
       <Box className="full-height">
-        <AppBar position='sticky'>
+        <AppBar position='absolute'>
           <MenuList className='navigation'>
-            <MenuItem onClick={() => this.changePage('appointments')}>Appointments</MenuItem>
-            <MenuItem onClick={() => this.changePage('patients')}>Patients</MenuItem>
-            <MenuItem onClick={() => this.changePage('users')}>Users</MenuItem>
-            <MenuItem onClick={() => this.changePage('companies')}>Companies</MenuItem>
+            <MenuItem 
+              onClick={() => this.changePage('appointments')}
+              selected={currentPage === 'appointments'}
+            >
+              Appointments
+            </MenuItem>
+            <MenuItem 
+              onClick={() => this.changePage('patients')}
+              selected={currentPage === 'patients'}
+            >
+              Patients
+            </MenuItem>
+            <MenuItem 
+              onClick={() => this.changePage('users')}
+              selected={currentPage === 'users'}
+            >
+              Users
+            </MenuItem>
+            <MenuItem 
+              onClick={() => this.changePage('companies')}
+              selected={currentPage === 'companies'}
+            >
+              Companies
+            </MenuItem>
           </MenuList>
         </AppBar>
         {

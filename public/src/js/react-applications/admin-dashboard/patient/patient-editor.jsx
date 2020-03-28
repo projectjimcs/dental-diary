@@ -4,9 +4,9 @@ import {
   Card,
 } from '@material-ui/core';
 
-import '../../../css/admin-dashboard/base.css';
+import '../../../../css/admin-dashboard/base.css';
 
-export default class AppointmentEditor extends React.Component {
+export default class PatientEditor extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -15,7 +15,7 @@ export default class AppointmentEditor extends React.Component {
     return (
       <Container className='mid-container'>
         <Card className='mid-content'>
-          Hi Appointment
+          Hi Patient
         </Card>
       </Container>
     );

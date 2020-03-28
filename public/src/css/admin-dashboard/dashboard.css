@@ -1,0 +1,47 @@
+.main-container {
+  display: flex;
+  margin-top: 52px;
+}
+
+.tab-container {
+  height: 100vh;
+}
+
+.main-container > .tab-container {
+  overflow: inherit;
+}
+
+.tab-panel {
+  width: 100%;
+}
+
+/* Panel Layout */
+
+.panel-mid-container {
+  display: flex;
+  justify-content: center;
+}
+
+.panel-mid-content {
+  padding: 20px;
+  width: 100%;
+}
+
+/* Create Company Panel */
+
+#create-company-form > .company-form-field,
+.panel-mid-row > .company-form-field {
+  margin: 5px
+}
+
+.panel-mid-row {
+  display: flex;
+}
+
+.timezone-field, .phone-field {
+  flex-grow: 1;
+}
+
+#create-company-form > .create-company-button {
+  margin-top: 10px;
+}
