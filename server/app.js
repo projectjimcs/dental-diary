@@ -5,7 +5,6 @@ import logger from 'morgan';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import regeneratorRuntime from "regenerator-runtime";
-import 'reflect-metadata';
 
 import homeRouter from './routes/home.js';
 import adminDashboardRouter from './routes/admin-dashboard.js';
