@@ -48,10 +48,8 @@
     "pug": "2.0.0-beta11",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
-    "reflect-metadata": "^0.1.13",
     "regenerator-runtime": "^0.13.5",
     "typeface-roboto": "0.0.75",
-    "typeorm": "^0.2.24",
     "uuid": "^7.0.2"
   },
   "devDependencies": {

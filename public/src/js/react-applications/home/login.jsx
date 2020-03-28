@@ -54,7 +54,6 @@ export default class Login extends React.Component {
 
     const emailErrorMessage = 'Please enter a valid email address';
     const passwordErrorMessage = 'A password is required';
-    const accountTypeErrorMessage = 'An account type must be selected';
 
     const errors = {};
 

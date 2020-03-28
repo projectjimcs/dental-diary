@@ -19,9 +19,13 @@ var _cors = _interopRequireDefault(require("cors"));
 
 var _regeneratorRuntime = _interopRequireDefault(require("regenerator-runtime"));
 
+require("reflect-metadata");
+
 var _home = _interopRequireDefault(require("./routes/home.js"));
 
 var _adminDashboard = _interopRequireDefault(require("./routes/admin-dashboard.js"));
+
+var _company = _interopRequireDefault(require("./routes/api/company.js"));
 
 var _config = require("./config.js");
 
@@ -47,7 +51,8 @@ app.use(_express["default"].urlencoded({
 }));
 app.use(_express["default"]["static"](_path["default"].join(_dirname, 'public')));
 app.use('/', _home["default"]);
-app.use('/admin-dashboard', _adminDashboard["default"]); // catch 404 and forward to error handler
+app.use('/admin-dashboard', _adminDashboard["default"]);
+app.use('/api/company', _company["default"]); // catch 404 and forward to error handler
 
 app.use(function (req, res, next) {
   next((0, _httpErrors["default"])(404));

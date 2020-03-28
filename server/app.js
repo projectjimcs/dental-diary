@@ -8,6 +8,7 @@ import regeneratorRuntime from "regenerator-runtime";
 
 import homeRouter from './routes/home.js';
 import adminDashboardRouter from './routes/admin-dashboard.js';
+import companyApiRouter from './routes/api/company.js';
 
 import {
   environment,
@@ -34,6 +35,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', homeRouter);
 app.use('/admin-dashboard', adminDashboardRouter);
+app.use('/api/company', companyApiRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

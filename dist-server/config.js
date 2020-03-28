@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.jwtSecret = exports.port = exports.environment = void 0;
+exports.dbPassword = exports.dbPort = exports.dbUser = exports.dbName = exports.jwtSecret = exports.port = exports.environment = void 0;
 
 var _dotenv = _interopRequireDefault(require("dotenv"));
 
@@ -17,5 +17,14 @@ exports.environment = environment;
 var port = process.env.PORT; // Tokens
 
 exports.port = port;
-var jwtSecret = process.env.JWT_SECRET;
+var jwtSecret = process.env.JWT_SECRET; // Database 
+
 exports.jwtSecret = jwtSecret;
+var dbName = process.env.DB_NAME;
+exports.dbName = dbName;
+var dbUser = process.env.DB_USER;
+exports.dbUser = dbUser;
+var dbPort = process.env.DB_PORT;
+exports.dbPort = dbPort;
+var dbPassword = process.env.DB_PASSWORD;
+exports.dbPassword = dbPassword;
