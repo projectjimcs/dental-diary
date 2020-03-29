@@ -14,6 +14,11 @@ import {
   environment,
 } from './config.js';
 
+import knex from './database/knex.js';
+import { Model } from 'objection';
+
+Model.knex(knex);
+
 const app = express();
 const __dirname = path.resolve();
 
