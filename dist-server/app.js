@@ -19,8 +19,6 @@ var _cors = _interopRequireDefault(require("cors"));
 
 var _regeneratorRuntime = _interopRequireDefault(require("regenerator-runtime"));
 
-require("reflect-metadata");
-
 var _home = _interopRequireDefault(require("./routes/home.js"));
 
 var _adminDashboard = _interopRequireDefault(require("./routes/admin-dashboard.js"));
@@ -29,7 +27,13 @@ var _company = _interopRequireDefault(require("./routes/api/company.js"));
 
 var _config = require("./config.js");
 
+var _knex = _interopRequireDefault(require("./database/knex.js"));
+
+var _objection = require("objection");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+_objection.Model.knex(_knex["default"]);
 
 var app = (0, _express["default"])();
 
