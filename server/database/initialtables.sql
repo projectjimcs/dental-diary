@@ -1,5 +1,4 @@
 /* Company Table */
-
 DROP TABLE IF EXISTS companies;
 CREATE TABLE companies (
   id SERIAL PRIMARY KEY NOT NULL,
@@ -40,7 +39,7 @@ CREATE TABLE users (
   password VARCHAR NOT NULL,
   firstname VARCHAR,
   lastname VARCHAR,
-  email VARCHAR,  
+  email VARCHAR,
   phone INTEGER,
   address VARCHAR,
   role_id INTEGER REFERENCES roles(id),

@@ -34,6 +34,10 @@
   margin: 5px
 }
 
+.panel-mid-row > .company-select-field {
+  width: 100%;
+}
+
 .panel-mid-row {
   display: flex;
 }

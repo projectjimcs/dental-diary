@@ -23,7 +23,7 @@ var _home = _interopRequireDefault(require("./routes/home.js"));
 
 var _adminDashboard = _interopRequireDefault(require("./routes/admin-dashboard.js"));
 
-var _company = _interopRequireDefault(require("./routes/api/company.js"));
+var _mainRouter = _interopRequireDefault(require("./routes/api/mainRouter.js"));
 
 var _config = require("./config.js");
 
@@ -33,6 +33,7 @@ var _objection = require("objection");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
+// import companyApiRouter from './routes/api/company.js';
 _objection.Model.knex(_knex["default"]);
 
 var app = (0, _express["default"])();
@@ -56,7 +57,7 @@ app.use(_express["default"].urlencoded({
 app.use(_express["default"]["static"](_path["default"].join(_dirname, 'public')));
 app.use('/', _home["default"]);
 app.use('/admin-dashboard', _adminDashboard["default"]);
-app.use('/api/company', _company["default"]); // catch 404 and forward to error handler
+app.use('/api', _mainRouter["default"]); // catch 404 and forward to error handler
 
 app.use(function (req, res, next) {
   next((0, _httpErrors["default"])(404));
