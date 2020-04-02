@@ -7,6 +7,7 @@ import {
   Box,
 } from '@material-ui/core';
 import CreateCompanyPanel from './create-company-panel.jsx';
+import UpdateCompanyPanel from './update-company-panel.jsx';
 
 import '../../../../css/admin-dashboard/dashboard.css';
 
@@ -46,9 +47,20 @@ export default class CompanyEditor extends React.Component {
 
     this.state = {
       currentTab: 0,
+      timezones: [],
     };
 
     this.handleTabChange = this.handleTabChange.bind(this);
+  }
+
+  componentDidMount() {
+    fetch('/api/timezone', {credentials: 'include'})
+      .then(response => response.json())
+      .then((timezones) => {
+        this.setState({
+          timezones
+        });
+      })
   }
 
   handleTabChange(event, tabValue) {
@@ -60,6 +72,7 @@ export default class CompanyEditor extends React.Component {
   render() {
     const {
       currentTab,
+      timezones,
     } = this.state;
 
     return (
@@ -78,10 +91,14 @@ export default class CompanyEditor extends React.Component {
           value={currentTab} 
           index={0}
         >
-          <CreateCompanyPanel/>
+          <CreateCompanyPanel timezones={timezones} />
         </TabPanel>
-        <TabPanel value={currentTab} index={1}>
-          Edit Company
+        <TabPanel 
+          className='tab-panel'
+          value={currentTab} 
+          index={1}
+        >
+          <UpdateCompanyPanel timezones={timezones} />
         </TabPanel>
       </div>
     );

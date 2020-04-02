@@ -12,14 +12,15 @@ import {
 } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 
-// import '../../../../css/admin-dashboard/base.css';
 import '../../../../css/admin-dashboard/dashboard.css';
 
-export default class CreateCompanyPanel extends React.Component {
+export default class UpdateCompanyPanel extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      companies: [],
+      companyUuid: '',
       companyName: '',
       companyEmail: '',
       companyPhone: '',
@@ -31,6 +32,17 @@ export default class CreateCompanyPanel extends React.Component {
     this.handleFormChange = this.handleFormChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleTimezoneSelection = this.handleTimezoneSelection.bind(this);
+    this.handleCompanySelection = this.handleCompanySelection.bind(this);
+  }
+
+  componentDidMount() {
+    fetch('/api/company', {credentials: 'include'})
+      .then(response => response.json())
+      .then((companies) => {
+        this.setState({
+          companies
+        });
+      })
   }
 
   emailIsValid(email) {
@@ -60,10 +72,27 @@ export default class CreateCompanyPanel extends React.Component {
     })
   }
 
+  handleCompanySelection(event) {
+    const { companies } = this.state;
+    const companyUuid = event.target.value;
+
+    const selectedCompany = companies.find(company => company.uuid === companyUuid);
+    console.log(selectedCompany)
+    this.setState({
+      companyUuid: selectedCompany.uuid,
+      companyName: selectedCompany.name,
+      companyEmail: selectedCompany.email || '',
+      companyPhone: selectedCompany.phone || '',
+      companyAddress: selectedCompany.address || '',
+      companyTimezone: selectedCompany.timezone,
+    });    
+  }
+
   handleFormSubmit(event) {
     event.preventDefault();
 
     const {
+      companyUuid,
       companyName,
       companyEmail,
       companyPhone,
@@ -74,7 +103,6 @@ export default class CreateCompanyPanel extends React.Component {
     const errorMessages = {
       companyEmail: 'Please enter a valid email address',
       companyPhone: 'Please enter a valid phone number',
-      // companyTimezone: 'Please select a timezone',
     }; 
 
     const errors = {};
@@ -90,12 +118,6 @@ export default class CreateCompanyPanel extends React.Component {
     } else {
       delete errors.companyPhone;
     }
-
-    // if (companyTimezone) {
-    //   delete errors.companyTimezone;
-    // } else {
-    //   errors['companyTimezone'] = errorMessages['companyTimezone'];
-    // }
 
     this.setState({
       errorText: {
@@ -123,8 +145,8 @@ export default class CreateCompanyPanel extends React.Component {
         },
         body: JSON.stringify(data),
       };
-
-      fetch('/api/company/create', options)
+      
+      fetch(`/api/company/${companyUuid}/update`, options)
         .then(() => {
           console.log('Success');
         })
@@ -133,20 +155,44 @@ export default class CreateCompanyPanel extends React.Component {
 
   render() {
     const {
+      companies,
+      companyUuid,
       companyName,
       companyEmail,
       companyPhone,
       companyAddress,
       errorText,
+      companyTimezone
     } = this.state;
 
     const { timezones } = this.props;
 
+    const companySelectItem = companies.map((company, index) => {
+      return <MenuItem key={index} value={company.uuid}>{company.name}</MenuItem>
+    });
+
     return (
       <Card className='panel-mid-container'>
         <div className='panel-mid-content'>
-          <span>COMPANY CREATION</span>
+          <span>UPDATE COMPANY</span>
           <form onSubmit={this.handleFormSubmit} id='create-company-form'>
+            <div className='panel-mid-row'>
+              <FormControl className='company-form-field company-select-field'>
+                <InputLabel id='company-select-label'>Select Company</InputLabel>
+                <Select
+                  name='company'
+                  labelId='company-select-label'
+                  id="company-select"
+                  value={companyUuid}
+                  onChange={this.handleCompanySelection}
+                >
+                  {companySelectItem}
+                </Select>
+                <FormHelperText
+                >
+                </FormHelperText>
+              </FormControl>
+            </div>
             <div className='panel-mid-row'>
               <TextField
                 className='company-form-field'
@@ -188,42 +234,19 @@ export default class CreateCompanyPanel extends React.Component {
                 id='timezone-select-label'
                 name='companyTimezone'
                 autoHighlight
-                // value={companyTimezone}
                 options={timezones}
+                value={companyTimezone}
                 onChange={this.handleTimezoneSelection}
                 renderInput={(params) => 
                   <TextField
                     {...params}
                     label='Timezone'
                     required
-                    // name='companyTimezone'
-                    // label='Timezone'
-                    // value={companyTimezone}
-                    // onChange={this.handleFormChange}
                   />
                 }
               />
-              {/*<FormControl className='company-form-field timezone-field'>
-                <InputLabel id='timezone-select-label'>Timezone *</InputLabel>
-                <Select
-                  autoComplete
-                  name='companyTimezone'
-                  labelId='timezone-select-label'
-                  id="timezone-select"
-                  value={companyTimezone}
-                  onChange={this.handleFormChange}
-                >
-                  <MenuItem value='kenya'>Kenya</MenuItem>
-                  <MenuItem value='china'>China</MenuItem>
-                </Select>
-                <FormHelperText
-                  error={errorText['companyTimezone'] ? true : false}
-                >
-                  {errorText['companyTimezone'] || ''}
-                </FormHelperText>
-    </FormControl>*/}
             </div>
-            <Button type='submit' className='create-company-button'>Create</Button>
+            <Button type='submit' className='create-company-button'>Update</Button>
           </form>
         </div>
       </Card>
@@ -231,6 +254,6 @@ export default class CreateCompanyPanel extends React.Component {
   }
 }
 
-CreateCompanyPanel.propTypes = {
+UpdateCompanyPanel.propTypes = {
   timezones: PropTypes.array.isRequired,
 };
