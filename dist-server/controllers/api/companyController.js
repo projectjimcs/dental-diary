@@ -35,7 +35,7 @@ var getCompanies = /*#__PURE__*/function () {
           case 7:
             _context.prev = 7;
             _context.t0 = _context["catch"](0);
-            console.log('Unsucessful');
+            console.log('Unsuccessful');
 
           case 10:
           case "end":
@@ -60,11 +60,11 @@ var create = /*#__PURE__*/function () {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
-            console.log(req.body);
             _req$body = req.body, companyName = _req$body.companyName, companyEmail = _req$body.companyEmail, companyPhone = _req$body.companyPhone, companyAddress = _req$body.companyAddress, companyTimezone = _req$body.companyTimezone;
-            uuid = (0, _uuid.v4)();
-            _context3.prev = 3;
-            _context3.next = 6;
+            uuid = (0, _uuid.v4)(); // No point doing transaction here, delete later
+
+            _context3.prev = 2;
+            _context3.next = 5;
             return _company["default"].transaction( /*#__PURE__*/function () {
               var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(trx) {
                 var newCompany;
@@ -100,22 +100,22 @@ var create = /*#__PURE__*/function () {
               };
             }());
 
-          case 6:
+          case 5:
             newCompany = _context3.sent;
-            _context3.next = 12;
+            _context3.next = 11;
             break;
 
-          case 9:
-            _context3.prev = 9;
-            _context3.t0 = _context3["catch"](3);
+          case 8:
+            _context3.prev = 8;
+            _context3.t0 = _context3["catch"](2);
             console.log('Unsucessful');
 
-          case 12:
+          case 11:
           case "end":
             return _context3.stop();
         }
       }
-    }, _callee3, null, [[3, 9]]);
+    }, _callee3, null, [[2, 8]]);
   }));
 
   return function create(_x3, _x4) {

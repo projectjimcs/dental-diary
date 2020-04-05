@@ -30,7 +30,9 @@
 /* Create Company Panel */
 
 #create-company-form > .company-form-field,
-.panel-mid-row > .company-form-field {
+.panel-mid-row > .company-form-field,
+#create-user-form > .user-form-field,
+.panel-mid-row > .user-form-field {
   margin: 5px
 }
 
@@ -46,6 +48,15 @@
   flex-grow: 1;
 }
 
-#create-company-form > .create-company-button {
+#create-company-form > .create-company-button,
+#create-user-form > .create-user-button {
   margin-top: 10px;
+}
+
+.panel-mid-row > .selection-field {
+  flex-grow: 1;
+}
+
+.role-selection-field {
+  width: 180px;
 }
