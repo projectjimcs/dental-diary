@@ -8,13 +8,11 @@ const getCompanies = async (req, res) => {
 
     res.json(companies);
   } catch (err) {
-    console.log('Unsucessful');
+    console.log('Unsuccessful');
   }
 }
 
 const create = async (req, res) => {
-  console.log(req.body);
-
   const {
     companyName,
     companyEmail,
@@ -25,6 +23,7 @@ const create = async (req, res) => {
 
   const uuid = uuidv4();
 
+  // No point doing transaction here, delete later
   try {
     const newCompany = await Company.transaction(async trx => {
       const newCompany = await Company.query(trx).insert({

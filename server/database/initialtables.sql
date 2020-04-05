@@ -5,7 +5,7 @@ CREATE TABLE companies (
   name VARCHAR NOT NULL,
   uuid UUID NOT NULL,
   email VARCHAR,
-  phone INTEGER,
+  phone BIGINT,
   address VARCHAR,
   timezone VARCHAR,
   status VARCHAR,
@@ -22,6 +22,11 @@ CREATE TABLE roles (
   name VARCHAR
 );
 
+/* Seed Initial Roles */
+INSERT INTO roles (key, name) VALUES ('admin', 'Administrator');
+INSERT INTO roles (key, name) VALUES ('doctor', 'Doctor');
+INSERT INTO roles (key, name) VALUES ('employee', 'Employee');
+
 /* Account Type Table */
 DROP TABLE IF EXISTS account_types;
 CREATE TABLE account_types (
@@ -29,6 +34,10 @@ CREATE TABLE account_types (
   key VARCHAR,
   name VARCHAR
 );
+
+/* Seed Initial Account Types */
+INSERT INTO account_types (key, name) VALUES ('superadmin', 'Super Administrator');
+INSERT INTO account_types (key, name) VALUES ('user', 'User');
 
 /* USER TABLE */
 DROP TABLE IF EXISTS users;
@@ -40,14 +49,20 @@ CREATE TABLE users (
   firstname VARCHAR,
   lastname VARCHAR,
   email VARCHAR,
-  phone INTEGER,
+  phone BIGINT,
   address VARCHAR,
-  role_id INTEGER REFERENCES roles(id),
   account_type_id INTEGER REFERENCES account_types(id),
   status VARCHAR,
   created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
   deleted_at TIMESTAMP WITH TIME ZONE
+);
+
+DROP TABLE IF EXISTS user_roles;
+CREATE TABLE user_roles (
+  id SERIAL PRIMARY KEY NOT NULL,
+  user_id INTEGER REFERENCES users(id),
+  role_id INTEGER REFERENCES roles(id)
 );
 
 /* PATIENT TABLE */
@@ -59,7 +74,7 @@ CREATE TABLE patients (
   firstname VARCHAR,
   lastname VARCHAR,
   email VARCHAR,
-  phone INTEGER,
+  phone BIGINT,
   address VARCHAR,
   status VARCHAR,
   created_by INTEGER REFERENCES users(id),
