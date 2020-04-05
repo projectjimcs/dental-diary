@@ -6,7 +6,6 @@ import { v4 as uuidv4 } from 'uuid';
 import bcrypt from 'bcrypt';
 
 const create = async (req, res) => {
-  console.log('create user');
   const {
     firstName,
     lastName,
