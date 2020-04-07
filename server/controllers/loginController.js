@@ -1,50 +1,45 @@
+import User from '../models/user.js';
+import bcrypt from 'bcrypt';
+
 import {
   generateToken,
 } from '../services/auth.js';
 
-const testUsers = [
-  {
-    email: 'testadmin@example.com',
-    password: 'testadmin!23',
-    accountType: 'admin',
-  },
-  {
-    email: 'testuser@example.com',
-    password: 'testuser!23',
-    accountType: 'member',
-  }
-];
-
 const MILLISECONDS_IN_SECOND = 1000;
 const SECONDS_IN_MINUTE = 60;
 
-const login = (req, res) => {
+const login = async (req, res) => {
   const {
     email,
     password,
   } = req.body;
 
-  const user = testUsers.find((user) => {
-    return user.email === email && user.password === password;
-  });
+  try {
+    const user = await User.query()
+      .where('email', email)
+      .first()
+      .throwIfNotFound();
 
-  if (user) {
-    const jwtToken = generateToken(user);
-
-    const expiration = 15 * SECONDS_IN_MINUTE * MILLISECONDS_IN_SECOND;
-    
-    res.cookie('jwtToken', jwtToken, {
-      maxAge: expiration,
-      secure: false,
-      httpOnly: true,
-    });
-
-    res.json(jwtToken);
-
-    return res.end();
+    if (user && bcrypt.compareSync(password, user.password)) {
+      const jwtToken = await generateToken(user);
+  
+      const expiration = 15 * SECONDS_IN_MINUTE * MILLISECONDS_IN_SECOND;
+      
+      res.cookie('jwtToken', jwtToken, {
+        maxAge: expiration,
+        secure: false,
+        httpOnly: true,
+      });
+  
+      res.json(jwtToken);
+  
+      return res.end();
+    } else {
+      return res.send('Wrong email or password');
+    }
+  } catch (err) {
+    console.log('User not found');
   }
-
-  return res.send('No user found');
 }
 
 export {

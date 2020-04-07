@@ -1,7 +1,7 @@
 const isAdministrator = (req, res, next) => {
   const accountType = req.user.accountType;
 
-  if (accountType !== 'admin') {
+  if (accountType !== 'superadmin') {
     return res.status('403').end();
   }
 
