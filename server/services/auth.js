@@ -1,10 +1,14 @@
+import AccountType from '../models/accountType.js';
 import jwt from 'jsonwebtoken';
 import { jwtSecret } from '../config.js'
 
-const generateToken = (user) => {
+const generateToken = async (user) => {
+  const accountType = await AccountType.query()
+    .findById(user.account_type_id);
+
   const payload = {
     email: user.email,
-    accountType: user.accountType,
+    accountType: accountType.key,
   };
 
   const jwtToken = jwt.sign(payload, jwtSecret, {

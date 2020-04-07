@@ -8,7 +8,7 @@ exports.isAdministrator = void 0;
 var isAdministrator = function isAdministrator(req, res, next) {
   var accountType = req.user.accountType;
 
-  if (accountType !== 'admin') {
+  if (accountType !== 'superadmin') {
     return res.status('403').end();
   }
 

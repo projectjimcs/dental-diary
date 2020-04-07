@@ -96,7 +96,7 @@ export default class Login extends React.Component {
       console.log(userData)
       const accountType = userData.accountType;
 
-      if (accountType === 'admin') {
+      if (accountType === 'superadmin') {
         window.location.replace('/admin-dashboard');
       } else {
         console.log('member logged in');

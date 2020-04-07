@@ -31,53 +31,52 @@ var create = /*#__PURE__*/function () {
       while (1) {
         switch (_context4.prev = _context4.next) {
           case 0:
-            console.log('create user');
             _req$body = req.body, firstName = _req$body.firstName, lastName = _req$body.lastName, companyUuid = _req$body.companyUuid, email = _req$body.email, phone = _req$body.phone, address = _req$body.address, password = _req$body.password, selectedRoles = _req$body.selectedRoles, accountTypeKey = _req$body.accountTypeKey;
-            _context4.prev = 2;
-            _context4.next = 5;
+            _context4.prev = 1;
+            _context4.next = 4;
             return _company["default"].query().where('uuid', companyUuid).select('id').throwIfNotFound().then(function (companies) {
               return companies.map(function (company) {
                 return company.id;
               })[0];
             });
 
-          case 5:
+          case 4:
             companyId = _context4.sent;
-            _context4.next = 12;
+            _context4.next = 11;
             break;
 
-          case 8:
-            _context4.prev = 8;
-            _context4.t0 = _context4["catch"](2);
+          case 7:
+            _context4.prev = 7;
+            _context4.t0 = _context4["catch"](1);
             console.log('Company not found');
             res.status('404').end();
 
-          case 12:
-            _context4.prev = 12;
-            _context4.next = 15;
+          case 11:
+            _context4.prev = 11;
+            _context4.next = 14;
             return _accountType["default"].query().select('id').where('key', accountTypeKey).throwIfNotFound().then(function (accountTypes) {
               return accountTypes.map(function (accountType) {
                 return accountType.id;
               })[0];
             });
 
-          case 15:
+          case 14:
             accountTypeId = _context4.sent;
-            _context4.next = 22;
+            _context4.next = 21;
             break;
 
-          case 18:
-            _context4.prev = 18;
-            _context4.t1 = _context4["catch"](12);
+          case 17:
+            _context4.prev = 17;
+            _context4.t1 = _context4["catch"](11);
             console.log('Account Type not found');
             res.status('404').end();
 
-          case 22:
+          case 21:
             uuid = (0, _uuid.v4)();
             hashedPassword = _bcrypt["default"].hashSync(password, 12);
             console.log(hashedPassword);
-            _context4.prev = 25;
-            _context4.next = 28;
+            _context4.prev = 24;
+            _context4.next = 27;
             return _user["default"].transaction( /*#__PURE__*/function () {
               var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(trx) {
                 var newUser;
@@ -116,7 +115,7 @@ var create = /*#__PURE__*/function () {
               };
             }());
 
-          case 28:
+          case 27:
             newUser = _context4.sent;
             selectedRoles.forEach( /*#__PURE__*/function () {
               var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(role) {
@@ -172,21 +171,21 @@ var create = /*#__PURE__*/function () {
               };
             }()); // Insert response here
 
-            _context4.next = 36;
+            _context4.next = 35;
             break;
 
-          case 32:
-            _context4.prev = 32;
-            _context4.t2 = _context4["catch"](25);
+          case 31:
+            _context4.prev = 31;
+            _context4.t2 = _context4["catch"](24);
             console.log(_context4.t2);
             console.log('Unsucessful user creation');
 
-          case 36:
+          case 35:
           case "end":
             return _context4.stop();
         }
       }
-    }, _callee4, null, [[2, 8], [12, 18], [25, 32]]);
+    }, _callee4, null, [[1, 7], [11, 17], [24, 31]]);
   }));
 
   return function create(_x, _x2) {
