@@ -99,7 +99,7 @@ export default class Login extends React.Component {
       if (accountType === 'superadmin') {
         window.location.replace('/admin-dashboard');
       } else {
-        console.log('member logged in');
+        window.location.replace('/dashboard');
       }
     })
     .catch((error) => {

@@ -1,0 +1,16 @@
+.mid-container {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+}
+
+.mid-content {
+  align-self: center;
+  padding: 10px;
+}
+
+.main-container {
+  display: flex;
+  margin-top: 52px;
+  height: 100%;
+}

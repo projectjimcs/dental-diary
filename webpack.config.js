@@ -7,6 +7,7 @@ module.exports = {
   entry: {
     'home/app': `./${srcReactPath}/home/app.jsx`,
     'admin-dashboard/app': `./${srcReactPath}/admin-dashboard/app.jsx`,
+    'user-dashboard/app': `./${srcReactPath}/user-dashboard/app.jsx`,
   },
   devServer: {
     contentBase: distReactPath,

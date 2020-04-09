@@ -8,7 +8,7 @@ import regeneratorRuntime from "regenerator-runtime";
 
 import homeRouter from './routes/home.js';
 import adminDashboardRouter from './routes/admin-dashboard.js';
-// import companyApiRouter from './routes/api/company.js';
+import userDashboardRouter from './routes/user-dashboard.js'
 import mainApiRouter from './routes/api/mainRouter.js';
 
 import {
@@ -41,6 +41,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', homeRouter);
 app.use('/admin-dashboard', adminDashboardRouter);
+app.use('/dashboard', userDashboardRouter);
 app.use('/api', mainApiRouter);
 
 // catch 404 and forward to error handler
