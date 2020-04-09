@@ -8,3 +8,9 @@
   align-self: center;
   padding: 10px;
 }
+
+.main-container {
+  display: flex;
+  margin-top: 52px;
+  height: 100%;
+}

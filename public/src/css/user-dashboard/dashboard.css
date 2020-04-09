@@ -1,0 +1,18 @@
+.appointment-side-content {
+  padding: 10px;
+  border-right: 1px solid black;
+}
+
+.calendar-container {
+  width: 100%;
+}
+
+.appointment-main-container {
+  display: flex;
+  margin-top: 52px;
+}
+
+.calendar-toolbar {
+  display: flex;
+  flex-direction: row-reverse;
+}

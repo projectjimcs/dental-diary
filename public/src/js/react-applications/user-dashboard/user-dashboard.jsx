@@ -45,7 +45,7 @@ export default class UserDashboard extends React.Component {
     } = this.state;
 
     return (
-      <Box className="full-height">
+      <Box className='full-height'>
         <AppBar position='absolute'>
           <MenuList className='navigation'>
             <MenuItem 
