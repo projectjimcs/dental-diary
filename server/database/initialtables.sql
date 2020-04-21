@@ -58,6 +58,20 @@ CREATE TABLE users (
   deleted_at TIMESTAMP WITH TIME ZONE
 );
 
+/* Seed Initial Admin */
+INSERT INTO users (uuid, password, firstname, lastname, email, account_type_id, created_at, updated_at, deleted_at)
+VALUES (
+  '97db2590-f742-4c84-a18b-f803f66bb767',
+  '$2b$12$HKzxQsX9L0QEQB/8jlRtPeTLz4fJQ9fWaWFB8gIlupOm6dqnU5eou',
+  'super',
+  'admin',
+  'superadmin@example.com',
+  1,
+  '2020-04-16 11:29:13.920419-07',
+  '2020-04-16 11:29:13.920419-07',
+  NULL
+);
+
 DROP TABLE IF EXISTS user_roles;
 CREATE TABLE user_roles (
   id SERIAL PRIMARY KEY NOT NULL,
@@ -89,11 +103,13 @@ CREATE TABLE appointments (
   id SERIAL PRIMARY KEY NOT NULL,
   company_id INTEGER REFERENCES companies(id),
   patient_id INTEGER REFERENCES patients(id) ON DELETE CASCADE,
+  title VARCHAR,
+  description VARCHAR,
+  visible BOOLEAN DEFAULT TRUE,
   booked_with INTEGER REFERENCES users(id),
   created_by INTEGER REFERENCES users(id),
-  start TIMESTAMP WITH TIME ZONE NOT NULL,
-  end TIMESTAMP WITH TIME ZONE NOT NULL,
-  created_at TIMESTAMP WITH TIME ZONE NOT NULL,
+  start_time TIMESTAMP WITH TIME ZONE NOT NULL,
+  end_time TIMESTAMP WITH TIME ZONE NOT NULL,
   created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
   deleted_at TIMESTAMP WITH TIME ZONE

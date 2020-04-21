@@ -6,6 +6,10 @@ import 'typeface-roboto';
 
 const element = document.querySelector('#app');
 
+const props = {
+  companyUuid: element.dataset.companyUuid,
+}
+
 ReactDOM.render(
-  <UserDashboard />, element
+  <UserDashboard {...props} />, element
 );

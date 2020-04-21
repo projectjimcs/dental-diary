@@ -14,5 +14,15 @@
 
 .calendar-toolbar {
   display: flex;
-  flex-direction: row-reverse;
+}
+
+.rangeRender {
+  flex-grow: 1;
+  align-self: center;
+}
+
+.modal-container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
 }

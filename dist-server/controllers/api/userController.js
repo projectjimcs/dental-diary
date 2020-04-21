@@ -74,9 +74,8 @@ var create = /*#__PURE__*/function () {
           case 21:
             uuid = (0, _uuid.v4)();
             hashedPassword = _bcrypt["default"].hashSync(password, 12);
-            console.log(hashedPassword);
-            _context4.prev = 24;
-            _context4.next = 27;
+            _context4.prev = 23;
+            _context4.next = 26;
             return _user["default"].transaction( /*#__PURE__*/function () {
               var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(trx) {
                 var newUser;
@@ -115,7 +114,7 @@ var create = /*#__PURE__*/function () {
               };
             }());
 
-          case 27:
+          case 26:
             newUser = _context4.sent;
             selectedRoles.forEach( /*#__PURE__*/function () {
               var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(role) {
@@ -171,21 +170,21 @@ var create = /*#__PURE__*/function () {
               };
             }()); // Insert response here
 
-            _context4.next = 35;
+            _context4.next = 34;
             break;
 
-          case 31:
-            _context4.prev = 31;
-            _context4.t2 = _context4["catch"](24);
+          case 30:
+            _context4.prev = 30;
+            _context4.t2 = _context4["catch"](23);
             console.log(_context4.t2);
             console.log('Unsucessful user creation');
 
-          case 35:
+          case 34:
           case "end":
             return _context4.stop();
         }
       }
-    }, _callee4, null, [[1, 7], [11, 17], [24, 31]]);
+    }, _callee4, null, [[1, 7], [11, 17], [23, 30]]);
   }));
 
   return function create(_x, _x2) {

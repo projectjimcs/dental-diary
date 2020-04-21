@@ -26,7 +26,7 @@ const create = async (req, res) => {
       .where('uuid', companyUuid)
       .select('id')
       .throwIfNotFound()
-      .then(companies => companies.map(company => company.id)[0]);
+      .then(companies => companies.map(company => company.id)[0]); // Refactor
   } catch (err) {
     console.log('Company not found');
     res.status('404').end();
@@ -37,7 +37,7 @@ const create = async (req, res) => {
       .select('id')
       .where('key', accountTypeKey)
       .throwIfNotFound()
-      .then(accountTypes => accountTypes.map(accountType => accountType.id)[0]);
+      .then(accountTypes => accountTypes.map(accountType => accountType.id)[0]); // Refactor
   } catch (err) {
     console.log('Account Type not found');
     res.status('404').end();
@@ -45,7 +45,7 @@ const create = async (req, res) => {
 
   const uuid = uuidv4();
   const hashedPassword = bcrypt.hashSync(password, 12);
-  console.log(hashedPassword)
+
   try {
     const newUser = await User.transaction(async trx => {
       const newUser = await User.query(trx).insert({

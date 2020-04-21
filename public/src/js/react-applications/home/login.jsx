@@ -51,7 +51,8 @@ export default class Login extends React.Component {
       password,
       accountType,
     } = this.state;
-
+    console.log(email)
+    console.log(password)
     const emailErrorMessage = 'Please enter a valid email address';
     const passwordErrorMessage = 'A password is required';
 
@@ -87,7 +88,7 @@ export default class Login extends React.Component {
       },
       body: JSON.stringify(data),
     };
-
+    
     fetch('/login', options)
     .then((response) => response.json())
     .then((jwtToken) => {

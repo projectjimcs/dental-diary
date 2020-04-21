@@ -1,0 +1,6 @@
+.modal-content {
+  display: flex;
+  width: 50%;
+  height: 50%;
+  align-self: center;
+}

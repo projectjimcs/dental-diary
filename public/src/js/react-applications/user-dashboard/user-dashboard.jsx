@@ -5,9 +5,7 @@ import {
   MenuList,
   MenuItem,
 } from '@material-ui/core';
-// import CompanyEditor from './company/company-editor.jsx';
-// import UserEditor from './user/user-editor.jsx';
-// import PatientEditor from './patient/patient-editor.jsx';
+
 import AppointmentLanding from './appointment-landing.jsx';
 import PatientLanding from './patient-landing.jsx';
 
@@ -19,10 +17,10 @@ export default class UserDashboard extends React.Component {
 
     this.pageDirectory = {
       patients: () => {
-        return <PatientLanding/>
+        return <PatientLanding />
       },
       appointments: () => {
-        return <AppointmentLanding/>
+        return <AppointmentLanding />
       },
     };
 
