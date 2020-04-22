@@ -23,7 +23,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 
 var router = _express["default"].Router();
 
-router.use([_auth.verifyToken, _permissions.isAdministrator]);
+router.use([_auth.verifyToken]);
+router.get('/', userController.getUsers);
+router.use([_permissions.isAdministrator]);
 router.post('/create', userController.create);
 var _default = router;
 exports["default"] = _default;

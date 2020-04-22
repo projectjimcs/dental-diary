@@ -25,7 +25,8 @@ const getAllAppointments = async (req, res) => {
         'created_by', 
         'start_time', 
         'end_time'
-      );
+      )
+      .throwIfNotFound();
 
     res.json(appointments);
   } catch (err) {

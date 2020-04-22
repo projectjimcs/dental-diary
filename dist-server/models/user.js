@@ -7,6 +7,10 @@ exports["default"] = void 0;
 
 var _objection = require("objection");
 
+var _role = _interopRequireDefault(require("./role.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -38,6 +42,24 @@ var User = /*#__PURE__*/function (_Model) {
     key: "tableName",
     get: function get() {
       return 'users';
+    }
+  }, {
+    key: "relationMappings",
+    get: function get() {
+      return {
+        roles: {
+          relation: _objection.Model.ManyToManyRelation,
+          modelClass: _role["default"],
+          join: {
+            from: 'users.id',
+            through: {
+              from: 'user_roles.user_id',
+              to: 'user_roles.role_id'
+            },
+            to: 'roles.id'
+          }
+        }
+      };
     }
   }]);
 

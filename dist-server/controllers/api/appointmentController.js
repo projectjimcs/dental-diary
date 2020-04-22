@@ -35,7 +35,7 @@ var getAllAppointments = /*#__PURE__*/function () {
           case 5:
             company = _context.sent;
             _context.next = 8;
-            return _appointment["default"].query().where('company_id', company.id).select('id', 'patient_id', 'title', 'description', 'visible', 'booked_with', 'created_by', 'start_time', 'end_time');
+            return _appointment["default"].query().where('company_id', company.id).select('id', 'patient_id', 'title', 'description', 'visible', 'booked_with', 'created_by', 'start_time', 'end_time').throwIfNotFound();
 
           case 8:
             appointments = _context.sent;

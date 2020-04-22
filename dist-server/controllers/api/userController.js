@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.create = void 0;
+exports.getUsers = exports.create = void 0;
 
 var _user = _interopRequireDefault(require("../../models/user.js"));
 
@@ -13,9 +13,13 @@ var _accountType = _interopRequireDefault(require("../../models/accountType.js")
 
 var _userRole = _interopRequireDefault(require("../../models/userRole.js"));
 
+var _role = _interopRequireDefault(require("../../models/role.js"));
+
 var _uuid = require("uuid");
 
 var _bcrypt = _interopRequireDefault(require("bcrypt"));
+
+var _auth = require("../../services/auth.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -193,3 +197,75 @@ var create = /*#__PURE__*/function () {
 }();
 
 exports.create = create;
+
+var getUsers = /*#__PURE__*/function () {
+  var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(req, res) {
+    var validRoles, userData, companyUuid, company, users, _users;
+
+    return regeneratorRuntime.wrap(function _callee5$(_context5) {
+      while (1) {
+        switch (_context5.prev = _context5.next) {
+          case 0:
+            validRoles = ['admin', 'doctor', 'employee'];
+            userData = (0, _auth.decodeToken)(req.cookies.jwtToken);
+            companyUuid = userData.companyUuid;
+            _context5.next = 5;
+            return _company["default"].query().findOne({
+              uuid: companyUuid
+            });
+
+          case 5:
+            company = _context5.sent;
+
+            if (!(req.query.role && validRoles.includes(req.query.role))) {
+              _context5.next = 17;
+              break;
+            }
+
+            _context5.prev = 7;
+            _context5.next = 10;
+            return _user["default"].query().withGraphFetched('roles').modifyGraph('roles', function (builder) {
+              builder.where('key', req.query.role);
+            });
+
+          case 10:
+            users = _context5.sent;
+            console.log(users);
+            _context5.next = 17;
+            break;
+
+          case 14:
+            _context5.prev = 14;
+            _context5.t0 = _context5["catch"](7);
+            console.log('Users not found');
+
+          case 17:
+            _context5.prev = 17;
+            _context5.next = 20;
+            return _user["default"].query().where('company_id', company.id).select('uuid', 'firstname', 'lastname').throwIfNotFound();
+
+          case 20:
+            _users = _context5.sent;
+            res.json(_users);
+            _context5.next = 27;
+            break;
+
+          case 24:
+            _context5.prev = 24;
+            _context5.t1 = _context5["catch"](17);
+            console.log('Users not found');
+
+          case 27:
+          case "end":
+            return _context5.stop();
+        }
+      }
+    }, _callee5, null, [[7, 14], [17, 24]]);
+  }));
+
+  return function getUsers(_x6, _x7) {
+    return _ref5.apply(this, arguments);
+  };
+}();
+
+exports.getUsers = getUsers;
