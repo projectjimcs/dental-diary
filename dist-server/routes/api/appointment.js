@@ -9,11 +9,9 @@ exports["default"] = void 0;
 
 var _express = _interopRequireDefault(require("express"));
 
-var userController = _interopRequireWildcard(require("../../controllers/api/userController.js"));
+var appointmentController = _interopRequireWildcard(require("../../controllers/api/appointmentController.js"));
 
 var _auth = require("../../services/auth.js");
-
-var _permissions = require("../../filters/permissions.js");
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
 
@@ -24,8 +22,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 var router = _express["default"].Router();
 
 router.use([_auth.verifyToken]);
-router.get('/', userController.getUsers);
-router.use([_permissions.isAdministrator]);
-router.post('/create', userController.create);
+router.get('/', appointmentController.getAllAppointments); // router.post('/create', companyController.create);
+// router.post('/:companyUuid/update', companyController.update);
+
 var _default = router;
 exports["default"] = _default;

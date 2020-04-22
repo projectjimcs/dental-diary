@@ -3,9 +3,11 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.verifyToken = exports.generateToken = void 0;
+exports.decodeToken = exports.verifyToken = exports.generateToken = void 0;
 
 var _accountType = _interopRequireDefault(require("../models/accountType.js"));
+
+var _company = _interopRequireDefault(require("../models/company.js"));
 
 var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
 
@@ -19,7 +21,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 var generateToken = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(user) {
-    var accountType, payload, jwtToken;
+    var accountType, company, payload, jwtToken;
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
@@ -29,16 +31,22 @@ var generateToken = /*#__PURE__*/function () {
 
           case 2:
             accountType = _context.sent;
+            _context.next = 5;
+            return _company["default"].query().findById(user.company_id);
+
+          case 5:
+            company = _context.sent;
             payload = {
               email: user.email,
-              accountType: accountType.key
+              accountType: accountType.key,
+              companyUuid: company.uuid
             };
             jwtToken = _jsonwebtoken["default"].sign(payload, _config.jwtSecret, {
               expiresIn: 900
             });
             return _context.abrupt("return", jwtToken);
 
-          case 6:
+          case 9:
           case "end":
             return _context.stop();
         }
@@ -68,6 +76,14 @@ var verifyToken = function verifyToken(req, res, next) {
     req.user = userData;
     next();
   });
-};
+}; // This code might need refactoring for later
+
 
 exports.verifyToken = verifyToken;
+
+var decodeToken = function decodeToken(token) {
+  var tokenParts = token.split('.');
+  return JSON.parse(Buffer.from(tokenParts[1], 'base64').toString('ascii'));
+};
+
+exports.decodeToken = decodeToken;

@@ -7,10 +7,6 @@ exports["default"] = void 0;
 
 var _objection = require("objection");
 
-var _user = _interopRequireDefault(require("./user.js"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -29,41 +25,23 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-var Role = /*#__PURE__*/function (_Model) {
-  _inherits(Role, _Model);
+var AccountType = /*#__PURE__*/function (_Model) {
+  _inherits(AccountType, _Model);
 
-  function Role() {
-    _classCallCheck(this, Role);
+  function AccountType() {
+    _classCallCheck(this, AccountType);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Role).apply(this, arguments));
+    return _possibleConstructorReturn(this, _getPrototypeOf(AccountType).apply(this, arguments));
   }
 
-  _createClass(Role, null, [{
+  _createClass(AccountType, null, [{
     key: "tableName",
     get: function get() {
-      return 'roles';
-    }
-  }, {
-    key: "relationMappings",
-    get: function get() {
-      return {
-        roles: {
-          relation: _objection.Model.ManyToManyRelation,
-          modelClass: _user["default"],
-          join: {
-            from: 'roles.id',
-            through: {
-              from: 'user_roles.role_id',
-              to: 'user_roles.user_id'
-            },
-            to: 'users.id'
-          }
-        }
-      };
+      return 'appointments';
     }
   }]);
 
-  return Role;
+  return AccountType;
 }(_objection.Model);
 
-exports["default"] = Role;
+exports["default"] = AccountType;
