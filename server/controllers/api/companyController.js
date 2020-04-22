@@ -6,7 +6,7 @@ const getCompanies = async (req, res) => {
     const companies = await Company.query()
       .select('uuid', 'name', 'email', 'phone', 'address', 'timezone', 'status');
 
-    res.json(companies);
+    return res.json(companies);
   } catch (err) {
     console.log('Unsuccessful');
   }

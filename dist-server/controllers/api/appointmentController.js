@@ -39,9 +39,7 @@ var getAllAppointments = /*#__PURE__*/function () {
 
           case 8:
             appointments = _context.sent;
-            res.json(appointments);
-            _context.next = 15;
-            break;
+            return _context.abrupt("return", res.json(appointments));
 
           case 12:
             _context.prev = 12;

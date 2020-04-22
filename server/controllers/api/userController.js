@@ -97,11 +97,16 @@ const getUsers = async (req, res) => {
   if (req.query.role && validRoles.includes(req.query.role)) {
     try {
       const users = await User.query()
+        .select('uuid', 'firstname', 'lastname')
         .withGraphFetched('roles')
         .modifyGraph('roles', builder => {
           builder.where('key', req.query.role)
+        })
+        .then((users) => {
+          return users.filter(user => user.roles.length);
         });
-        console.log(users)
+        
+      return res.json(users);
     } catch (err) {
       console.log('Users not found');
     }
@@ -117,7 +122,7 @@ const getUsers = async (req, res) => {
       )
       .throwIfNotFound();
 
-    res.json(users);
+    return res.json(users);
   } catch (err) {
     console.log('Users not found');
   }

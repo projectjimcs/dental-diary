@@ -28,9 +28,7 @@ var getCompanies = /*#__PURE__*/function () {
 
           case 3:
             companies = _context.sent;
-            res.json(companies);
-            _context.next = 10;
-            break;
+            return _context.abrupt("return", res.json(companies));
 
           case 7:
             _context.prev = 7;

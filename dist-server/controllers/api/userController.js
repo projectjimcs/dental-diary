@@ -224,15 +224,17 @@ var getUsers = /*#__PURE__*/function () {
 
             _context5.prev = 7;
             _context5.next = 10;
-            return _user["default"].query().withGraphFetched('roles').modifyGraph('roles', function (builder) {
+            return _user["default"].query().select('uuid', 'firstname', 'lastname').withGraphFetched('roles').modifyGraph('roles', function (builder) {
               builder.where('key', req.query.role);
+            }).then(function (users) {
+              return users.filter(function (user) {
+                return user.roles.length;
+              });
             });
 
           case 10:
             users = _context5.sent;
-            console.log(users);
-            _context5.next = 17;
-            break;
+            return _context5.abrupt("return", res.json(users));
 
           case 14:
             _context5.prev = 14;
@@ -246,9 +248,7 @@ var getUsers = /*#__PURE__*/function () {
 
           case 20:
             _users = _context5.sent;
-            res.json(_users);
-            _context5.next = 27;
-            break;
+            return _context5.abrupt("return", res.json(_users));
 
           case 24:
             _context5.prev = 24;

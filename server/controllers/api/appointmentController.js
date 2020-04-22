@@ -28,7 +28,7 @@ const getAllAppointments = async (req, res) => {
       )
       .throwIfNotFound();
 
-    res.json(appointments);
+    return res.json(appointments);
   } catch (err) {
     console.log('Unsuccessful');
   }
