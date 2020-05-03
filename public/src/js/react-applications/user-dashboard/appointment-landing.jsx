@@ -29,6 +29,7 @@ export default class AppointmentLanding extends React.Component {
       setAnchorEl: null,
       creationModalOpen: false,
       apppintments: [],
+      doctors: [],
     };
 
     this.initialize = this.initialize.bind(this);
@@ -51,13 +52,19 @@ export default class AppointmentLanding extends React.Component {
   }
 
   initialize() {
-    fetch(`/api/appointment`, {credentials: 'include'})
-      .then(response => response.json())
-      .then((appointments) => {
+    const apiCalls = [
+      fetch('/api/appointment', {credentials: 'include'}).then(response => response.json()),
+      fetch('/api/user?role=doctor', {credentials: 'include'}).then(response => response.json()),
+    ];
+
+    Promise.all(apiCalls)
+      .then(([appointments, doctors]) => {
         const formattedAppointments = this.formatAppointments(appointments);
+        const formattedDoctors = this.formatDoctors(doctors);
 
         this.setState({
           appointments: formattedAppointments,
+          doctors: formattedDoctors,
         });
 
         this.setDateRangeDisplay();
@@ -73,6 +80,17 @@ export default class AppointmentLanding extends React.Component {
         start: appointment.start_time,
         end: appointment.end_time,
         category: 'time',
+        calendarId: appointment.booked_with,
+      }
+    });
+  }
+
+  formatDoctors(doctors) {
+    return doctors.map((doctor) => {
+      return {
+        id: doctor.id,
+        name: `${doctor.firstname} ${doctor.lastname}`,
+        borderColor: '#0000FF',
       }
     });
   }
@@ -158,8 +176,9 @@ export default class AppointmentLanding extends React.Component {
       dateRange,
       creationModalOpen,
       appointments,
+      doctors,
     } = this.state;
-    console.log(appointments)
+
     return (
       <div className='appointment-main-container'>
         <Modal
@@ -193,6 +212,7 @@ export default class AppointmentLanding extends React.Component {
             ref={this.calendarRef}
             onBeforeCreateSchedule={this.onBeforeCreateSchedule}
             view={calendarView}
+            calendars={doctors}
             schedules={appointments}
           />
         </Card>

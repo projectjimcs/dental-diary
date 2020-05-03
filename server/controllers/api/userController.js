@@ -97,7 +97,7 @@ const getUsers = async (req, res) => {
   if (req.query.role && validRoles.includes(req.query.role)) {
     try {
       const users = await User.query()
-        .select('uuid', 'firstname', 'lastname')
+        .select('id', 'uuid', 'firstname', 'lastname')
         .withGraphFetched('roles')
         .modifyGraph('roles', builder => {
           builder.where('key', req.query.role)
@@ -116,6 +116,7 @@ const getUsers = async (req, res) => {
     const users = await User.query()
       .where('company_id', company.id)
       .select(
+        'id',
         'uuid',
         'firstname',
         'lastname',
