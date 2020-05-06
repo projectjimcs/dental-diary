@@ -53,6 +53,7 @@ CREATE TABLE users (
   address VARCHAR,
   account_type_id INTEGER REFERENCES account_types(id),
   status VARCHAR,
+  color VARCHAR,
   created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
   deleted_at TIMESTAMP WITH TIME ZONE

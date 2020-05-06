@@ -224,7 +224,7 @@ var getUsers = /*#__PURE__*/function () {
 
             _context5.prev = 7;
             _context5.next = 10;
-            return _user["default"].query().select('id', 'uuid', 'firstname', 'lastname').withGraphFetched('roles').modifyGraph('roles', function (builder) {
+            return _user["default"].query().select('id', 'uuid', 'firstname', 'lastname', 'color').withGraphFetched('roles').modifyGraph('roles', function (builder) {
               builder.where('key', req.query.role);
             }).then(function (users) {
               return users.filter(function (user) {

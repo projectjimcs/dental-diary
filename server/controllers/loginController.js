@@ -22,7 +22,7 @@ const login = async (req, res) => {
 
     if (user && bcrypt.compareSync(password, user.password)) {
       const jwtToken = await generateToken(user);
-  
+
       const expiration = 15 * SECONDS_IN_MINUTE * MILLISECONDS_IN_SECOND;
       
       res.cookie('jwtToken', jwtToken, {
@@ -38,6 +38,7 @@ const login = async (req, res) => {
       return res.send('Wrong email or password');
     }
   } catch (err) {
+    console.log(err);
     console.log('User not found');
   }
 }
