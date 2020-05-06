@@ -90,7 +90,7 @@ export default class AppointmentLanding extends React.Component {
       return {
         id: doctor.id,
         name: `${doctor.firstname} ${doctor.lastname}`,
-        borderColor: '#0000FF',
+        borderColor: doctor.color,
       }
     });
   }
@@ -189,7 +189,13 @@ export default class AppointmentLanding extends React.Component {
           <AppointmentCreationModal />
         </Modal>
         <div className='appointment-side-content'>
-          hi there something
+          {
+            doctors.map((doctor) => {
+              return (
+                <Button style={{color: doctor.borderColor}}>{doctor.name}</Button>
+              );
+            })
+          }
         </div>
         <Card className='calendar-container'>
           <div className='calendar-toolbar'>

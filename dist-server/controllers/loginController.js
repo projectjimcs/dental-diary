@@ -59,15 +59,16 @@ var login = /*#__PURE__*/function () {
             return _context.abrupt("return", res.send('Wrong email or password'));
 
           case 16:
-            _context.next = 21;
+            _context.next = 22;
             break;
 
           case 18:
             _context.prev = 18;
             _context.t0 = _context["catch"](1);
+            console.log(_context.t0);
             console.log('User not found');
 
-          case 21:
+          case 22:
           case "end":
             return _context.stop();
         }

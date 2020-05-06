@@ -21,7 +21,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 var generateToken = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(user) {
-    var accountType, company, payload, jwtToken;
+    var accountType, payload, company, jwtToken;
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
@@ -31,22 +31,30 @@ var generateToken = /*#__PURE__*/function () {
 
           case 2:
             accountType = _context.sent;
-            _context.next = 5;
-            return _company["default"].query().findById(user.company_id);
-
-          case 5:
-            company = _context.sent;
             payload = {
               email: user.email,
-              accountType: accountType.key,
-              companyUuid: company.uuid
+              accountType: accountType.key
             };
+
+            if (!user.company_id) {
+              _context.next = 9;
+              break;
+            }
+
+            _context.next = 7;
+            return _company["default"].query().findById(user.company_id);
+
+          case 7:
+            company = _context.sent;
+            payload['companyUuid'] = company.uuid;
+
+          case 9:
             jwtToken = _jsonwebtoken["default"].sign(payload, _config.jwtSecret, {
               expiresIn: 900
             });
             return _context.abrupt("return", jwtToken);
 
-          case 9:
+          case 11:
           case "end":
             return _context.stop();
         }

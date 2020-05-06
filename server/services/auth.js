@@ -7,14 +7,17 @@ const generateToken = async (user) => {
   const accountType = await AccountType.query()
     .findById(user.account_type_id);
 
-  const company = await Company.query()
-    .findById(user.company_id);
-
   const payload = {
     email: user.email,
     accountType: accountType.key,
-    companyUuid: company.uuid,
   };
+
+  if (user.company_id) {
+    const company = await Company.query()
+    .findById(user.company_id);
+
+    payload['companyUuid'] = company.uuid;
+  }
 
   const jwtToken = jwt.sign(payload, jwtSecret, {
     expiresIn: 900
