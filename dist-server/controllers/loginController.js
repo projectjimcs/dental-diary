@@ -46,7 +46,7 @@ var login = /*#__PURE__*/function () {
 
           case 8:
             jwtToken = _context.sent;
-            expiration = 15 * SECONDS_IN_MINUTE * MILLISECONDS_IN_SECOND;
+            expiration = 30 * SECONDS_IN_MINUTE * MILLISECONDS_IN_SECOND;
             res.cookie('jwtToken', jwtToken, {
               maxAge: expiration,
               secure: false,

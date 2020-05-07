@@ -23,7 +23,7 @@ const login = async (req, res) => {
     if (user && bcrypt.compareSync(password, user.password)) {
       const jwtToken = await generateToken(user);
 
-      const expiration = 15 * SECONDS_IN_MINUTE * MILLISECONDS_IN_SECOND;
+      const expiration = 30 * SECONDS_IN_MINUTE * MILLISECONDS_IN_SECOND;
       
       res.cookie('jwtToken', jwtToken, {
         maxAge: expiration,

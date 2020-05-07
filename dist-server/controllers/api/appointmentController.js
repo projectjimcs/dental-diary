@@ -44,9 +44,10 @@ var getAllAppointments = /*#__PURE__*/function () {
           case 12:
             _context.prev = 12;
             _context.t0 = _context["catch"](2);
+            console.log(_context.t0);
             console.log('Unsuccessful');
 
-          case 15:
+          case 16:
           case "end":
             return _context.stop();
         }

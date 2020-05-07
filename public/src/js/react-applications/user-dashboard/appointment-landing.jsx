@@ -5,6 +5,8 @@ import {
   Button,
   Select,
   Modal,
+  Checkbox,
+  FormControlLabel,
 } from '@material-ui/core';
 import moment from 'moment';
 
@@ -43,6 +45,8 @@ export default class AppointmentLanding extends React.Component {
     this.onBeforeCreateSchedule = this.onBeforeCreateSchedule.bind(this);
     this.openCreationModal = this.openCreationModal.bind(this);
     this.closeCreationModal = this.closeCreationModal.bind(this);
+    this.toggleSchedule = this.toggleSchedule.bind(this);
+    this.handleClickCalendar = this.handleClickCalendar.bind(this);
 
     this.calendarRef = React.createRef();
   }
@@ -62,9 +66,16 @@ export default class AppointmentLanding extends React.Component {
         const formattedAppointments = this.formatAppointments(appointments);
         const formattedDoctors = this.formatDoctors(doctors);
 
+        // Setup variable to hold toggle for calendar visibility
+        const calendarVisibility = {};
+        doctors.forEach((doctor) => {
+          calendarVisibility[doctor.id] = true;
+        });
+
         this.setState({
           appointments: formattedAppointments,
           doctors: formattedDoctors,
+          calendarVisibility: calendarVisibility,
         });
 
         this.setDateRangeDisplay();
@@ -152,6 +163,26 @@ export default class AppointmentLanding extends React.Component {
     this.setDateRangeDisplay();
   }
 
+  handleClickCalendar(event) {
+    const calendarId = parseInt(event.target.value);
+    const isVisible = event.target.checked;
+
+    this.setState({
+      calendarVisibility: {
+        ...this.state.calendarVisibility,
+        [calendarId]: isVisible,
+      }
+    });
+
+    this.toggleSchedule(calendarId, isVisible);
+  }
+
+  toggleSchedule(calendarId, hide) {
+    const calendarInstance = this.calendarRef.current.getInstance();
+
+    calendarInstance.toggleSchedules(calendarId, !hide);
+  }
+
   onBeforeCreateSchedule(event) {
     // console.log(event.guide)
     // const title = prompt('Schedule', '@suvrity\'s birthday');
@@ -177,6 +208,7 @@ export default class AppointmentLanding extends React.Component {
       creationModalOpen,
       appointments,
       doctors,
+      calendarVisibility,
     } = this.state;
 
     return (
@@ -192,7 +224,17 @@ export default class AppointmentLanding extends React.Component {
           {
             doctors.map((doctor) => {
               return (
-                <Button style={{color: doctor.borderColor}}>{doctor.name}</Button>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      value={doctor.id}
+                      style={{color: doctor.borderColor}}
+                      checked={calendarVisibility[doctor.id]}
+                      onChange={this.handleClickCalendar}
+                    />
+                  }
+                  label={doctor.name}
+                />
               );
             })
           }
