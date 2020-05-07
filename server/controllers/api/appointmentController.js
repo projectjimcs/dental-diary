@@ -13,6 +13,7 @@ const getAllAppointments = async (req, res) => {
       })
       .throwIfNotFound();
 
+    // Would have to query date range of just what is shown in the current calendar
     const appointments = await Appointment.query()
       .where('company_id', company.id)
       .select(
@@ -30,6 +31,7 @@ const getAllAppointments = async (req, res) => {
 
     return res.json(appointments);
   } catch (err) {
+    console.log(err)
     console.log('Unsuccessful');
   }
 }
