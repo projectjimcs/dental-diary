@@ -3,7 +3,6 @@ import express from 'express';
 import path from 'path';
 import logger from 'morgan';
 import cookieParser from 'cookie-parser';
-import cors from 'cors';
 import regeneratorRuntime from "regenerator-runtime";
 
 import homeRouter from './routes/home.js';
@@ -29,12 +28,6 @@ app.set('view engine', 'pug');
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(cors({
-  credentials: true,
-  origin: [
-    'http://localhost:9000', // Put this in env based on environment
-  ],
-}));
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));

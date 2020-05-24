@@ -57,8 +57,8 @@ export default class AppointmentLanding extends React.Component {
 
   initialize() {
     const apiCalls = [
-      fetch('/api/appointment', {credentials: 'include'}).then(response => response.json()),
-      fetch('/api/user?role=doctor', {credentials: 'include'}).then(response => response.json()),
+      fetch('/api/appointment').then(response => response.json()),
+      fetch('/api/user?role=doctor').then(response => response.json()),
     ];
 
     Promise.all(apiCalls)

@@ -15,8 +15,6 @@ var _morgan = _interopRequireDefault(require("morgan"));
 
 var _cookieParser = _interopRequireDefault(require("cookie-parser"));
 
-var _cors = _interopRequireDefault(require("cors"));
-
 var _regeneratorRuntime = _interopRequireDefault(require("regenerator-runtime"));
 
 var _home = _interopRequireDefault(require("./routes/home.js"));
@@ -46,11 +44,6 @@ app.set('views', _path["default"].join(_dirname, 'views'));
 app.set('view engine', 'pug');
 app.use((0, _morgan["default"])('dev'));
 app.use(_express["default"].json());
-app.use((0, _cors["default"])({
-  credentials: true,
-  origin: ['http://localhost:9000' // Put this in env based on environment
-  ]
-}));
 app.use((0, _cookieParser["default"])());
 app.use(_express["default"].urlencoded({
   extended: false

@@ -62,9 +62,9 @@ export default class UserEditor extends React.Component {
 
   initializeData() {
     let apiCalls = [
-      fetch('/api/company', {credentials: 'include'}).then(response => response.json()),
-      fetch('/api/account/types', {credentials: 'include'}).then(response => response.json()),
-      fetch('/api/account/roles', {credentials: 'include'}).then(response => response.json()),
+      fetch('/api/company').then(response => response.json()),
+      fetch('/api/account/types').then(response => response.json()),
+      fetch('/api/account/roles').then(response => response.json()),
     ];
 
     Promise.all(apiCalls)
