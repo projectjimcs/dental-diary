@@ -116,7 +116,6 @@ export default class CreateCompanyPanel extends React.Component {
 
       const options = {
         method: 'POST',
-        credentials: 'include',
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',

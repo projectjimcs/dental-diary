@@ -54,7 +54,7 @@ export default class CompanyEditor extends React.Component {
   }
 
   componentDidMount() {
-    fetch('/api/timezone', {credentials: 'include'})
+    fetch('/api/timezone')
       .then(response => response.json())
       .then((timezones) => {
         this.setState({

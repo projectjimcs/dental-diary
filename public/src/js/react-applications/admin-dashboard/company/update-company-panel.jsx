@@ -36,7 +36,7 @@ export default class UpdateCompanyPanel extends React.Component {
   }
 
   componentDidMount() {
-    fetch('/api/company', {credentials: 'include'})
+    fetch('/api/company')
       .then(response => response.json())
       .then((companies) => {
         this.setState({
@@ -138,7 +138,6 @@ export default class UpdateCompanyPanel extends React.Component {
 
       const options = {
         method: 'POST',
-        credentials: 'include',
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
